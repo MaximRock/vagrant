@@ -1,0 +1,11 @@
+---
+# handlers file for postgresql_role
+- name: PostgreSQL start
+  ansible.builtin.service:
+    name: postgresql
+    state: started
+
+- name: PostgreSQL restart
+  ansible.builtin.service:
+    name: postgresql
+    state: restarted 

@@ -1,0 +1,5 @@
+---
+# defaults file for postgresql_role
+db_name: vagrant
+db_user: vagrant
+db_password: vagrant

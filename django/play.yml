@@ -1,0 +1,7 @@
+---
+- name: Install Postgresql
+  hosts: testing
+  become: true
+  roles:
+    - postgresql_role
+    - django_role

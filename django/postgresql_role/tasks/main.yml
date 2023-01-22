@@ -1,0 +1,40 @@
+---
+# tasks file for postgresql_role
+- name: Install aptitude
+  ansible.builtin.apt:
+    name: aptitude
+    state: latest
+    update_cache: true
+
+- name: Install PostgreSQL
+  ansible.builtin.apt:
+    pkg:
+      - postgresql
+      - postgresql-contrib
+      - libpq-dev
+      - python3-psycopg2
+      - python-psycopg2
+    state: latest
+
+- name: Start and enable postgres
+  ansible.builtin.service:
+    name: postgresql 
+    enabled: yes
+    state: started
+
+- name: Create database
+  ansible.builtin.postgresql_db:
+    name: "{{ db_name }}"
+  become_user: postgres
+  become: true
+
+- name: Create user
+  ansible.builtin.postgresql_user:
+    db: "{{ db_name }}"
+    name: "{{ db_user }}"
+    password: "{{ db_password }}"
+    priv: ALL
+    state: present
+    role_attr_flags: NOSUPERUSER,NOCREATEDB
+  become: true
+  become_user: postgres 

@@ -1,0 +1,22 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure("2") do |config|
+  config.vm.box = "ubuntu/bionic64"
+  config.vm.box_check_update = false
+  config.vm.hostname = "testing"
+  config.vm.define "testing"
+
+  config.vm.provider "virtualbox" do |vb|
+    vb.gui = false
+    vb.name = "ubuntu_18.04_django_postgresql"
+    vb.memory = "1024"
+  end  
+
+  config.vm.synced_folder "test_project", "/home/vagrant/test_project"
+  config.vm.network :forwarded_port, guest: 8000, host: 8931, auto_correct: true
+
+  config.vm.provision "ansible" do |ansible|
+    ansible.playbook = "play.yml"
+  end  
+end
