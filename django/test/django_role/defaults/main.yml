@@ -1,6 +1,0 @@
----
-# defaults file for django
-user_name: vagrant
-project_name_path: /home/{{ user_name }}/django_project
-project_name: django_project
-    
